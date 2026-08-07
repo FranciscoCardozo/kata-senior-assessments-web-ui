@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { Question } from '../../models/interfaces/question.interface';
+import { QuestionType } from '../../models/enums/questionType.enum';
+import { QuestionCategory } from '../../models/enums/questionCategory.enum';
+import { QuestionDifficulty } from '../../models/enums/questionDifficulty.enum';
+import { QuestionService } from '../../services/questionService/question.service';
+import { EventsService } from '../../services/eventsService/events.service';
 
 @Component({
   selector: 'app-create-question',
@@ -16,20 +22,22 @@ export class CreateQuestionComponent {
     category: { value: '', valid: false},
   }
 
-  constructor() {
+  constructor(
+    private readonly questionService: QuestionService,
+    private readonly eventsService: EventsService
+  ) {
   }
 
   validateSelectHandler(event: any, key: string) {
-    console.log('EVENT:', event);
-    (this.validationFormObject as any)[key].value = event;
+    (this.validationFormObject as any)[key].value = event.target.value;
     (this.validationFormObject as any)[key].valid = true;
   }
 
   validateInputHandler(event: any, key: string) {
-    console.log('Input value:', event);
-    const inputRegex = /^[a-zA-Z0-9\s]+$/;
-    const isValid = inputRegex.test(event);
-    (this.validationFormObject as any)[key].value = event;
+    const value = event.target.value;
+    const inputRegex = /^[\p{L}\p{M}\p{N}\s¿?]+$/u;
+    const isValid = inputRegex.test(value);
+    (this.validationFormObject as any)[key].value = value;
     (this.validationFormObject as any)[key].valid = isValid;
   }
 
@@ -38,7 +46,32 @@ export class CreateQuestionComponent {
   }
 
   handleClickCreate(){
-    //TODO CALL SERVICE TO SAVE QUESTION
+    const body: Question = {
+      text: this.validationFormObject.question.value,
+      type: this.validationFormObject.type.value as QuestionType,
+      answer: this.validationFormObject.answer.value,
+      difficulty: this.validationFormObject.difficulty.value as QuestionDifficulty,
+      category: this.validationFormObject.category.value as QuestionCategory
+    }
+
+
+    this.questionService.registryQuestion(body)
+    .then((response: any)=>{
+      console.log(response)
+      this.eventsService.openModal({
+        open: true,
+        title: 'Petición completada',
+        description: 'Se ha guardado satisfactoriamente la pregunta.'
+      });
+    })
+    .catch((err: any) => {
+      this.eventsService.openModal({
+        open: true,
+        title: 'Ups!, estamos presentando problemas',
+        description: 'Por favor intenta guardar la pregunta de nuevo en unos minutos.'
+      });
+    });
+
   }
 
 }

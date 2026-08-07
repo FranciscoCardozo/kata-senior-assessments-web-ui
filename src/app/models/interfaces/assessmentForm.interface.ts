@@ -1,6 +1,6 @@
 import { Question } from "./question.interface";
 
 export interface AssessmentForm {
-  id: string;
+  id?: string;
   questions: Question[];
 }

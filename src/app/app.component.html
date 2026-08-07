@@ -1,4 +1,9 @@
 <div class="app-container">
+  <app-modal
+    [isOpen]="modalProps.open"
+    [title]="modalProps.title"
+    [description]="modalProps.description"
+  ></app-modal>
   <app-header></app-header>
   <app-side-bar></app-side-bar>
   <main>

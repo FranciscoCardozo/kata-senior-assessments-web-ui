@@ -22,7 +22,7 @@ export class AssessmentCreatePageComponent {
       id: '1',
       text: '¿Qué es JavaScript?',
       type: QuestionType.open,
-      correctAnswer: 'JavaScript',
+      answer: 'JavaScript',
       difficulty: QuestionDifficulty.easy,
       category: QuestionCategory.javascript
     },
@@ -30,7 +30,7 @@ export class AssessmentCreatePageComponent {
       id: '2',
       text: '¿Qué es Node.js?',
       type: QuestionType.open,
-      correctAnswer: 'Node.js',
+      answer: 'Node.js',
       difficulty: QuestionDifficulty.medium,
       category: QuestionCategory.nodeJs
     }

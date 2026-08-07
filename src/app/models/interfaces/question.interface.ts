@@ -3,10 +3,10 @@ import { QuestionDifficulty } from "../enums/questionDifficulty.enum";
 import { QuestionType } from "../enums/questionType.enum";
 
 export interface Question {
-  id: string;
+  id?: string;
   text: string;
   type: QuestionType;
-  correctAnswer: string;
+  answer: string;
   difficulty: QuestionDifficulty;
   category: QuestionCategory;
 }

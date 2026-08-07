@@ -1,0 +1,15 @@
+<div class="modal-container" *ngIf="isOpen">
+  <div class="content">
+    <h2 class="title">{{ title }}</h2>
+
+    <div class="description">
+      {{ description }}
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn" (click)="closeModalHandler()">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

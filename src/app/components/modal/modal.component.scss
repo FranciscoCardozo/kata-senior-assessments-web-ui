@@ -1,0 +1,68 @@
+.modal-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(173, 216, 230, 0.35); // Azul claro
+  backdrop-filter: blur(6px);
+}
+
+.content {
+  width: min(90vw, 450px);
+  padding: 1.5rem;
+
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .2);
+
+  animation: fadeIn .2s ease;
+}
+
+.title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e3a5f;
+}
+
+.description {
+  margin-bottom: 1.5rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.btn {
+  display: block;
+  margin-left: auto;
+
+  padding: .6rem 1.2rem;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
+
+  transition: background .2s;
+
+  &:hover {
+    background: #1565c0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
