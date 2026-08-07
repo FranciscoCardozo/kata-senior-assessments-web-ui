@@ -22,11 +22,13 @@ export class AssessmentService {
 
   public async getAssessmentById(id: string): Promise<any>{
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.getAssessmentById}/${id}`;
-    return fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
+
+    return response.json();
   }
 }

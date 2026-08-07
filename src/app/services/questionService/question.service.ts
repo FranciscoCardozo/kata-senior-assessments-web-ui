@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import config from '../../config';
 import { Question } from '../../models/interfaces/question.interface';
-import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +9,15 @@ export class QuestionService {
 
   constructor() { }
 
-  public async getAllQuestions(): Promise<any>{
+  public async getAllQuestions(): Promise<Question[]> {
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.getAllQuestions}`;
-    return fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
+    return response.json();
   }
 
   public async registryQuestion(body: Question): Promise<any>{

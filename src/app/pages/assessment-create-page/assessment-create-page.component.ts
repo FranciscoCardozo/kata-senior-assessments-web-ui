@@ -40,7 +40,7 @@ export class AssessmentCreatePageComponent implements OnInit{
     }
   ];
 
-  questionsResponse!: Question[];
+  questionsResponse: Question[] = [];
 
   assessmentQuestions: Question[] = [];
 
