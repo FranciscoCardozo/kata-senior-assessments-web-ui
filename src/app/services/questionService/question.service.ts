@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import config from '../../config';
 import { Question } from '../../models/interfaces/question.interface';
+import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class QuestionService {
   }
 
   public async registryQuestion(body: Question): Promise<any>{
+    console.log('BODY PETICION: ', body);
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.registryQuestion}`;
     return fetch(endpoint, {
       method: 'POST',
