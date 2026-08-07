@@ -1,1 +1,29 @@
-<p>assessment-response-page works!</p>
+<div class="assessment-response-container">
+  <div class="form-container" *ngIf="!idAssessment">
+    <div class="form-content">
+      <div class="title-container">
+        <p class="title">Por favor ingresa la información correspondiente del examen a responder: </p>
+      </div>
+      <div class="input-container">
+        <label for="questionText">Texto de la pregunta:</label>
+        <input
+          type="text"
+          id="questionText"
+          name="questionText"
+          (input)="validateInputHandler($event)"
+        >
+        <div class="error-message">
+          <p>Ingresa un Id valido</p>
+        </div>
+      </div>
+      <div class="button-container">
+        <button>
+          Consultar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="assessment-container">
+
+  </div>
+</div>
