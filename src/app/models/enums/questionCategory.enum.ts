@@ -1,6 +1,6 @@
 export enum QuestionCategory {
-  "JavaScript" = "JavaScript",
-  "Node.js" = "Node.js",
-  "DataBase" = "DataBase",
-  "Cloud" = "Cloud"
+  "javascript" = "JavaScript",
+  "nodeJs" = "node.js",
+  "database" = "dataBase",
+  "cloud" = "cloud"
 }
