@@ -9,7 +9,7 @@ export class AssessmentService {
 
   constructor() { }
 
-  public async registryAssessment(body: AssessmentForm) {
+  public async registryAssessment(body: AssessmentForm): Promise<any> {
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.registryAssessment}`;
     return fetch(endpoint, {
       method: 'POST',
@@ -20,7 +20,7 @@ export class AssessmentService {
     });
   }
 
-  public async getAssessmentById(id: string){
+  public async getAssessmentById(id: string): Promise<any>{
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.getAssessmentById}/${id}`;
     return fetch(endpoint, {
       method: 'GET',

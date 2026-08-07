@@ -6,7 +6,7 @@
       class="questions-container"
       cdkDropList
       #availableList="cdkDropList"
-      [cdkDropListData]="availableQuestions"
+      [cdkDropListData]="questionsResponse"
       [cdkDropListConnectedTo]="[selectedList]"
       (cdkDropListDropped)="drop($event)"
       class="drop-list">
@@ -15,7 +15,7 @@
 
       <div
         class="question"
-        *ngFor="let question of availableQuestions"
+        *ngFor="let question of questionsResponse"
         cdkDrag>
 
         <div class="question-text">
