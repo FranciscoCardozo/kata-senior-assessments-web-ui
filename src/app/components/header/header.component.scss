@@ -1,0 +1,31 @@
+.header-container {
+  height: 70px;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e5edf5;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.08);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .header-text {
+      margin: 0;
+      color: #2c3e50;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-family: 'Inter', 'Roboto', sans-serif;
+    }
+  }
+}
