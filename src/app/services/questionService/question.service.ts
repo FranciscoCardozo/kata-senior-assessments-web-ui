@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import config from '../../config';
 import { Question } from '../../models/interfaces/question.interface';
+import { M } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class QuestionService {
         'Content-Type': 'application/json'
       }
     });
+    console.log('RESPONSE FROM SERVICE: ', response);
     return response.json();
   }
 
