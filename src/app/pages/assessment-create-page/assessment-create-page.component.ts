@@ -10,6 +10,7 @@ import { EventsService } from '../../services/eventsService/events.service';
 import { QuestionService } from '../../services/questionService/question.service';
 import { AssessmentService } from '../../services/assesmentService/assessment.service';
 import { AssessmentForm } from '../../models/interfaces/assessmentForm.interface';
+import config from '../../config';
 
 @Component({
   selector: 'app-assessment-create-page',
@@ -100,11 +101,13 @@ export class AssessmentCreatePageComponent implements OnInit{
     this.assessmentService.registryAssessment(body)
     .then((response: any)=> {
       console.log(response);
-      //TODO AGREGAR UUID CON URL PARA COMPLETAR PRUEBA
+      const uuid = response.uuid;
+      const finalUrl = `${config.url}/assessment/response?id=${uuid}`;
       this.eventsService.openModal({
         open: true,
-        title: 'Proceso completado',
-        description: 'Se ha guardado la prueba de manera satisfactoria.'
+        title: 'Assessment generado con exito.',
+        description: `Recuerda ingresar al siguiente enlace para que alguien mas lo complete: ${finalUrl},
+         o consultarlo con el siguiente id: ${uuid}`
       });
     })
     .catch((error: any) => {
