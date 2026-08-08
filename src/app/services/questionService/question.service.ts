@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import config from '../../config';
 import { Question } from '../../models/interfaces/question.interface';
 import { M } from '@angular/cdk/keycodes';
+import { QuestionsResponse } from '../../models/interfaces/questionResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class QuestionService {
 
   constructor() { }
 
-  public async getAllQuestions(): Promise<Question[]> {
+  public async getAllQuestions(): Promise<QuestionsResponse> {
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.getAllQuestions}`;
     const response = await fetch(endpoint, {
       method: 'GET',

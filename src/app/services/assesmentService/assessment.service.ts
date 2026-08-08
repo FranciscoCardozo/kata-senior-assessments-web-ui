@@ -11,13 +11,15 @@ export class AssessmentService {
 
   public async registryAssessment(body: AssessmentForm): Promise<any> {
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.registryAssessment}`;
-    return fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     });
+
+    return response.json();
   }
 
   public async getAssessmentById(id: string): Promise<any>{

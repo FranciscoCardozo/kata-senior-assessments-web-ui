@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Question } from '../../models/interfaces/question.interface';
-import { QuestionCategory } from '../../models/enums/questionCategory.enum';
-import { QuestionDifficulty } from '../../models/enums/questionDifficulty.enum';
-import { QuestionType } from '../../models/enums/questionType.enum';
 import { NgFor } from '@angular/common';
 import { EventsService } from '../../services/eventsService/events.service';
 import { QuestionService } from '../../services/questionService/question.service';
 import { AssessmentService } from '../../services/assesmentService/assessment.service';
 import { AssessmentForm } from '../../models/interfaces/assessmentForm.interface';
 import config from '../../config';
+import { QuestionsResponse } from '../../models/interfaces/questionResponse.interface';
 
 @Component({
   selector: 'app-assessment-create-page',
@@ -22,24 +20,6 @@ import config from '../../config';
   styleUrl: './assessment-create-page.component.scss'
 })
 export class AssessmentCreatePageComponent implements OnInit{
-  availableQuestions: Question[] = [
-    {
-      id: '1',
-      text: '¿Qué es JavaScript?',
-      type: QuestionType.open,
-      answer: 'JavaScript',
-      difficulty: QuestionDifficulty.easy,
-      category: QuestionCategory.javascript
-    },
-    {
-      id: '2',
-      text: '¿Qué es Node.js?',
-      type: QuestionType.open,
-      answer: 'Node.js',
-      difficulty: QuestionDifficulty.medium,
-      category: QuestionCategory.nodeJs
-    }
-  ];
 
   questionsResponse: Question[] = [];
 
@@ -55,8 +35,7 @@ export class AssessmentCreatePageComponent implements OnInit{
 
   ngOnInit(){
     this.questionService.getAllQuestions()
-    .then((response: any) => {
-      console.log('RESPONSE FROM PAGE', response);
+    .then((response: QuestionsResponse) => {
       this.questionsResponse = response.questions;
     })
     .catch((err: any) => {
@@ -90,7 +69,7 @@ export class AssessmentCreatePageComponent implements OnInit{
   handleClickSave(){
     const selectedQuestionsIds = this.assessmentQuestions
       .map(question => question.id)
-      .filter((id): id is string => id !== undefined);
+      .filter((id): id is string => Boolean(id));
 
     console.log(selectedQuestionsIds);
 
@@ -99,7 +78,7 @@ export class AssessmentCreatePageComponent implements OnInit{
     };
 
     this.assessmentService.registryAssessment(body)
-    .then((response: any)=> {
+    .then((response: { uuid: string })=> {
       console.log(response);
       const uuid = response.uuid;
       const finalUrl = `${config.url}/assessment/response?id=${uuid}`;
