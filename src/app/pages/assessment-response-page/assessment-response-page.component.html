@@ -23,7 +23,26 @@
       </div>
     </div>
   </div>
-  <div class="assessment-container">
-
+  <div class="assessment-container" *ngIf="filteredQuestions">
+    <div class="content">
+      <div class="question-container" *ngFor="let question of filteredQuestions">
+        <div class="type-container">{{question.type}}</div>
+        <div class="difficulty-container">{{question.difficulty}}</div>
+        <div class="title-container">
+          {{question.text}}
+        </div>
+        <div class="response-field-container" *ngIf="question.type !== 'coding'">
+          <input
+            type="text"
+            id="questionText"
+            name="questionText"
+            (input)="validateResponseHandler($event, question)"
+            >
+        </div>
+        <div class="response-code-container" *ngIf="question.type === 'coding'">
+          <div class="p">Proximamente</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
