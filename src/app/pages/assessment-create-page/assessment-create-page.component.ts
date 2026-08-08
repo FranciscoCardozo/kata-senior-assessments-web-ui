@@ -21,6 +21,8 @@ import { QuestionsResponse } from '../../models/interfaces/questionResponse.inte
 })
 export class AssessmentCreatePageComponent implements OnInit{
 
+  availableQuestions: Question[] = [];
+
   questionsResponse: Question[] = [];
 
   assessmentQuestions: Question[] = [];
@@ -36,7 +38,7 @@ export class AssessmentCreatePageComponent implements OnInit{
   ngOnInit(){
     this.questionService.getAllQuestions()
     .then((response: QuestionsResponse) => {
-      this.questionsResponse = response.questions;
+      this.availableQuestions = response.questions;
     })
     .catch((err: any) => {
       this.eventsService.openModal({
@@ -68,20 +70,13 @@ export class AssessmentCreatePageComponent implements OnInit{
   }
   handleClickSave(){
     const selectedQuestionsIds = this.assessmentQuestions
-      .map(question => {
-        const questionData = question as Question & {
-          _id?: string;
-          questionId?: string;
-        };
-
-        return questionData.id ?? questionData._id ?? questionData.questionId;
-      })
-      .filter((id): id is string => Boolean(id));
+      .map(question => question.SK?.replace('QUESTION#', ''))
+      .filter(Boolean);
 
     console.log(selectedQuestionsIds);
 
     const body: AssessmentForm = {
-      questions: selectedQuestionsIds
+      questions: selectedQuestionsIds as any
     };
 
     this.assessmentService.registryAssessment(body)
