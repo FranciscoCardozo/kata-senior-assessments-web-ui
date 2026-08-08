@@ -6,10 +6,14 @@ import { AssessmentService } from '../../services/assesmentService/assessment.se
 import { QuestionService } from '../../services/questionService/question.service';
 import { Question } from '../../models/interfaces/question.interface';
 import { EventManager } from '@angular/platform-browser';
+import { SandboxComponent } from "../../components/sandbox/sandbox.component";
+import { SandobxService } from '../../services/sandboxService/sandbox.service';
+import { SubmitRequestBody } from '../../models/interfaces/submitRequestBody.interface';
+import { LanguageId } from '../../models/enums/languageId.enum';
 
 @Component({
   selector: 'app-assessment-response-page',
-  imports: [NgIf, NgForOf],
+  imports: [NgIf, NgForOf, SandboxComponent],
   templateUrl: './assessment-response-page.component.html',
   styleUrl: './assessment-response-page.component.scss'
 })
@@ -17,6 +21,7 @@ export class AssessmentResponsePageComponent implements OnInit {
   idAssessment!: string;
   assessmentRs!: any;
   questionsList!: any[];
+  responseCode = '';
   filteredQuestions: Question[] = [];
 
   validationFormObject = {
@@ -31,7 +36,8 @@ export class AssessmentResponsePageComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly eventsService: EventsService,
     private readonly assessmentService: AssessmentService,
-    private readonly questionService: QuestionService
+    private readonly questionService: QuestionService,
+    private readonly sandboxService: SandobxService
   ){}
 
   ngOnInit(){
@@ -98,5 +104,25 @@ export class AssessmentResponsePageComponent implements OnInit {
           isValid: event.target.value === question.answer
         }
       );
+  }
+
+  sendCode(sourceCode: string, category: string){
+    const reqBody: SubmitRequestBody = {
+      languageId: LanguageId[category as keyof typeof LanguageId],
+      sourceCode: sourceCode
+    }
+
+    this.sandboxService.submitCode(reqBody)
+    .then((response: any)=>{
+      this.responseCode = response.result.stderr? response.result.stderr:
+        response.result.stdout;
+    })
+    .catch(() => {
+      this.eventsService.openModal({
+        open: true,
+        title: 'Ups!, estamos presentando problemas en estos momentos',
+        description: 'Por favor intentarlo dentro de unos minutos'
+      });
+    });
   }
 }

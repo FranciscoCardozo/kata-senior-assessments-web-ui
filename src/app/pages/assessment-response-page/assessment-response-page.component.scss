@@ -12,8 +12,6 @@
 }
 
 
-/* Card individual de pregunta */
-
 .question-container {
   width: 100%;
 
@@ -42,8 +40,6 @@
   }
 }
 
-
-/* Tipo y dificultad */
 
 .type-container,
 .difficulty-container {
@@ -75,8 +71,6 @@
 }
 
 
-/* Texto de la pregunta */
-
 .question-container > .title-container {
   font-size: 18px;
 
@@ -89,8 +83,6 @@
   margin-top: 5px;
 }
 
-
-/* Input de respuesta */
 
 .response-field-container {
   width: 100%;
@@ -134,9 +126,6 @@
     }
   }
 }
-
-
-/* Bloque para coding */
 
 .response-code-container {
   width: 100%;

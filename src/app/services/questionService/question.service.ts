@@ -19,12 +19,10 @@ export class QuestionService {
         'Content-Type': 'application/json'
       }
     });
-    console.log('RESPONSE FROM SERVICE: ', response);
     return response.json();
   }
 
   public async registryQuestion(body: Question): Promise<any>{
-    console.log('BODY PETICION: ', body);
     const endpoint = `${config.assessmentsApiEndpoint}${config.serviceEndpoints.registryQuestion}`;
     return fetch(endpoint, {
       method: 'POST',

@@ -40,7 +40,10 @@
             >
         </div>
         <div class="response-code-container" *ngIf="question.type === 'coding'">
-          <div class="p">Proximamente</div>
+          <app-sandbox
+            (sourceCode)="sendCode($event, question.category)"
+            [responseCode]="responseCode"
+          ></app-sandbox>
         </div>
       </div>
     </div>

@@ -1,1 +1,23 @@
-<p>sandbox works!</p>
+<div class="sand-box-container">
+  <div class="input-container">
+    <textarea
+      class="text-area-container"
+      [(ngModel)]="code"
+      aria-label="Código de entrada"
+      autocomplete="off"
+      autocapitalize="off"
+      autocorrect="off"
+      placeholder="Escribe o pega tu código aquí..."
+      spellcheck="false"
+      wrap="off"
+    ></textarea>
+  </div>
+  <div class="output-container">
+    <div class="response-area-container">
+      <pre>{{ responseCode }}</pre>
+    </div>
+  </div>
+  <div class="button-container">
+    <button (click)="sendCode()">Enviar</button>
+  </div>
+</div>
