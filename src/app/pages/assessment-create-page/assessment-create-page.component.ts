@@ -54,9 +54,9 @@ export class AssessmentCreatePageComponent implements OnInit{
 
   ngOnInit(){
     this.questionService.getAllQuestions()
-    .then((response: Question[]) => {
+    .then((response: any) => {
       console.log('RESPONSE FROM PAGE', response);
-      this.questionsResponse = response;
+      this.questionsResponse = response.questions;
     })
     .catch((err: any) => {
       this.eventsService.openModal({
