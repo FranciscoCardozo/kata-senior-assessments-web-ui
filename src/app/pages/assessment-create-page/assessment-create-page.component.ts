@@ -68,7 +68,14 @@ export class AssessmentCreatePageComponent implements OnInit{
   }
   handleClickSave(){
     const selectedQuestionsIds = this.assessmentQuestions
-      .map(question => question.id)
+      .map(question => {
+        const questionData = question as Question & {
+          _id?: string;
+          questionId?: string;
+        };
+
+        return questionData.id ?? questionData._id ?? questionData.questionId;
+      })
       .filter((id): id is string => Boolean(id));
 
     console.log(selectedQuestionsIds);
