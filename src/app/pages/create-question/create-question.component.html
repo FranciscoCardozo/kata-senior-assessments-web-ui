@@ -17,6 +17,7 @@
           <option value="" disabled selected>Seleccione un tipo</option>
           <option value="open">Abierta</option>
           <option value="coding">Código</option>
+          <option value="multiple">Multiple</option>
         </select>
       </div>
 
@@ -46,6 +47,7 @@
           <option value="Node.js">Node.js</option>
           <option value="DataBase">Base de Datos</option>
           <option value="Cloud">Nube</option>
+          <option value="Python">Python</option>
         </select>
       </div>
 
@@ -67,6 +69,22 @@
         name="answer"
         (input)="validateInputHandler($event, 'answer')"
         >
+      </div>
+
+      <div class="options-container" *ngIf="validationFormObject.type.value === 'multiple'">
+        <label for="answer">Opciones:</label>
+        <input
+        type="text"
+        id="answer"
+        name="answer"
+        (input)="updateLastOption($event)"
+        >
+        <p *ngIf="validationFormObject.options.value.length > 0">
+          {{ validationFormObject.options.value.join(', ') }}
+        </p>
+        <div class="button-container">
+          <button (click)="addOption($event)">Agregar opción</button>
+        </div>
       </div>
 
       <button

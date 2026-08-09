@@ -11,4 +11,5 @@ export interface Question {
   answer: string;
   difficulty: QuestionDifficulty;
   category: QuestionCategory;
+  options?: string[];
 }

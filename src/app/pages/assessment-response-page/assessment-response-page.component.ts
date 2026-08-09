@@ -98,17 +98,12 @@ export class AssessmentResponsePageComponent implements OnInit {
   }
 
   validateResponseHandler(event: any, question: Question){
-      this.responseResult.push(
-        {
-          question: question.text,
-          isValid: event.target.value === question.answer
-        }
-      );
+       this.updateAnswer(event.target.value, question);
   }
 
-  sendCode(sourceCode: string, category: string){
+  sendCode(sourceCode: string, question: Question){
     const reqBody: SubmitRequestBody = {
-      languageId: LanguageId[category as keyof typeof LanguageId],
+      languageId: LanguageId[question.category  as keyof typeof LanguageId],
       sourceCode: sourceCode
     }
 
@@ -116,6 +111,9 @@ export class AssessmentResponsePageComponent implements OnInit {
     .then((response: any)=>{
       this.responseCode = response.result.stderr? response.result.stderr:
         response.result.stdout;
+
+      this.updateAnswer(this.responseCode, question);
+
     })
     .catch(() => {
       this.eventsService.openModal({
@@ -124,5 +122,47 @@ export class AssessmentResponsePageComponent implements OnInit {
         description: 'Por favor intentarlo dentro de unos minutos'
       });
     });
+  }
+
+  updateAnswer(answer: string, question: Question): void {
+  const index = this.responseResult.findIndex(
+    (item: any) => item.id === question.SK
+  );
+  const answerObject = {
+    id: question.SK,
+    question: question.text,
+    answer: answer,
+    correctValue: question.answer,
+    isValid: answer === question.answer
+  };
+  if (index !== -1) {
+    this.responseResult[index] = answerObject;
+  } else {
+    this.responseResult.push(
+        answerObject
+      );
+  }
+  console.log('UpdateAnser: ', this.responseResult);
+}
+
+  selectRadioOption(event: any, question: Question){
+    console.log(event.target.value);
+    this.updateAnswer(event.target.value, question);
+  }
+
+  getAssessmentInfo(){
+    console.log('llamando assessment');
+
+    if (!this.validationFormObject.id.valid) {
+      console.warn('No se consulta el assessment: el ID no es un UUID válido');
+      return;
+    }
+
+    this.idAssessment = this.validationFormObject.id.value;
+    this.getAssessmentQuestions();
+  }
+
+  getResults(){
+    console.log('POR HACER');
   }
 }
