@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
   }
 
   handleRedirectEvent(event: string) {
-    console.log('Redirecting to:', event);
     this.router.navigate([event]);
   }
 

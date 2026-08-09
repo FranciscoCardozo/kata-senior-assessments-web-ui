@@ -48,8 +48,6 @@ export class AssessmentResponsePageComponent implements OnInit {
       if (id && this.uuidRegex.test(id)) {
         this.idAssessment = id;
         this.getAssessmentQuestions();
-      } else {
-        console.log('ID NO ENCONTRADO O UUID INVÁLIDO');
       }
     });
   }
@@ -62,10 +60,8 @@ export class AssessmentResponsePageComponent implements OnInit {
         this.questionService.getAllQuestions()
       ]
     ).then(([assessmentRs, questionRs]) => {
-      console.log('RES ASSESSMENT: ', assessmentRs, questionRs);
       this.assessmentRs = assessmentRs.assessment[0].questions;
       this.questionsList = questionRs.questions;
-      console.log(this.assessmentRs, this.questionsList);
     })
     .catch((err: any) => {
       this.eventsService.openModal({
@@ -94,7 +90,6 @@ export class AssessmentResponsePageComponent implements OnInit {
     this.validationFormObject.id.value = value;
     this.validationFormObject.id.valid = isValidUuid;
 
-    console.log('UUID válido:', isValidUuid);
   }
 
   validateResponseHandler(event: any, question: Question){
@@ -142,16 +137,13 @@ export class AssessmentResponsePageComponent implements OnInit {
         answerObject
       );
   }
-  console.log('UpdateAnser: ', this.responseResult);
 }
 
   selectRadioOption(event: any, question: Question){
-    console.log(event.target.value);
     this.updateAnswer(event.target.value, question);
   }
 
   getAssessmentInfo(){
-    console.log('llamando assessment');
 
     if (!this.validationFormObject.id.valid) {
       console.warn('No se consulta el assessment: el ID no es un UUID válido');

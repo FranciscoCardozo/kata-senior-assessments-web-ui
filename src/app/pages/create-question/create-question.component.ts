@@ -63,7 +63,6 @@ export class CreateQuestionComponent {
 
     this.questionService.registryQuestion(body)
     .then((response: any)=>{
-      console.log(response)
       this.eventsService.openModal({
         open: true,
         title: 'Petición completada',
@@ -82,12 +81,9 @@ export class CreateQuestionComponent {
 
   updateLastOption(event: any){
     this.lastOption = event.target.value;
-    console.log(event.target.value);
-    console.log(this.lastOption);
   }
 
   addOption(event: any){
     this.validationFormObject.options.value.push(this.lastOption);
-    console.log(this.validationFormObject);
   }
 }

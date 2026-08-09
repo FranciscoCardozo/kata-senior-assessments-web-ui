@@ -73,15 +73,12 @@ export class AssessmentCreatePageComponent implements OnInit{
       .map(question => question.SK?.replace('QUESTION#', ''))
       .filter(Boolean);
 
-    console.log(selectedQuestionsIds);
-
     const body: AssessmentForm = {
       questions: selectedQuestionsIds as any
     };
 
     this.assessmentService.registryAssessment(body)
     .then((response: { uuid: string })=> {
-      console.log(response);
       const uuid = response.uuid;
       const finalUrl = `${config.url}/assessment/response?id=${uuid}`;
       this.eventsService.openModal({
