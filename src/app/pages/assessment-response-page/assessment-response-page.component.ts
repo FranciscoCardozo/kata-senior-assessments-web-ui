@@ -163,6 +163,7 @@ export class AssessmentResponsePageComponent implements OnInit {
   }
 
   getResults(){
-    console.log('POR HACER');
+    sessionStorage.setItem('assessmentResult', JSON.stringify(this.responseResult));
+    this.eventsService.redirectEvent('assessment/result');
   }
 }

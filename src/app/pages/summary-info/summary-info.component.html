@@ -1,0 +1,32 @@
+<div class="summary-container">
+  <div class="content-container" *ngFor="let item of assessmentResult">
+
+    <div class="title">
+      Resultados
+    </div>
+
+    <div class="question">
+      {{ item.question }}
+    </div>
+
+    <div class="answer">
+      <span>Tu respuesta:</span>
+      {{ item.answer }}
+    </div>
+
+    <div class="correct-answer">
+      <span>Respuesta correcta:</span>
+      {{ item.correctValue }}
+    </div>
+
+    <div
+      class="valid-answer"
+      [class.valid]="item.isValid"
+      [class.invalid]="!item.isValid"
+    >
+      <span>Resultado:</span>
+      {{ item.isValid ? 'Correcta' : 'Incorrecta' }}
+    </div>
+
+  </div>
+</div>
