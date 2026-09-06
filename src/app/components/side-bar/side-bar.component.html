@@ -1,8 +1,14 @@
-<div class="side-bar-container">
-  <div class="content">
-    <div class="option" (click)="handleSelectedOption('home')">Home</div>
-    <div class="option" (click)="handleSelectedOption('question/create')">Create Question</div>
-    <div class="option" (click)="handleSelectedOption('assessment/create')">Create Assessment</div>
-    <div class="option" (click)="handleSelectedOption('assessment/response')">Resolve Assessment</div>
-  </div>
-</div>
+<aside class="side-bar-container">
+  <mat-nav-list>
+    <a
+      mat-list-item
+      *ngFor="let item of navItems"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+    >
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span matListItemTitle>{{ item.label }}</span>
+    </a>
+  </mat-nav-list>
+</aside>

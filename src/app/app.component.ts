@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./components/header/header.component";
-import { SideBarComponent } from "./components/side-bar/side-bar.component";
-import { EventsService } from './services/eventsService/events.service';
+import { HeaderComponent } from './components/header/header.component';
+import { MaterialDialogComponent } from './components/modal/modal.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { ModalEvent } from './models/interfaces/modalEvent.interface';
-import { ModalComponent } from "./components/modal/modal.component";
+import { EventsService } from './services/eventsService/events.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, SideBarComponent, ModalComponent],
+  imports: [RouterOutlet, HeaderComponent, SideBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'kata-senior-assessments-web-ui';
+  title = 'source-trace';
 
   modalProps = {
     open: false,
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly eventsService: EventsService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -35,9 +37,22 @@ export class AppComponent implements OnInit {
     this.router.navigate([event]);
   }
 
-  handleModal(event: ModalEvent){
+  handleModal(event: ModalEvent) {
     this.modalProps.description = event.description;
     this.modalProps.open = event.open;
     this.modalProps.title = event.title;
+
+    if (event.open) {
+      this.dialog.open(MaterialDialogComponent, {
+        width: 'min(90vw, 480px)',
+        panelClass: 'app-material-dialog-panel',
+        data: {
+          title: event.title,
+          description: event.description,
+          confirmLabel: 'Aceptar',
+          cancelLabel: 'Cerrar'
+        }
+      });
+    }
   }
 }

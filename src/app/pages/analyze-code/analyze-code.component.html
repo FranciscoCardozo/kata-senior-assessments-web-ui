@@ -1,0 +1,107 @@
+<section class="analyze-code-container">
+  <header class="page-heading">
+    <h1>Analizar código</h1>
+    <p>Sube un archivo comprimido o comparte la URL de un repositorio para analizarlo.</p>
+  </header>
+
+  <mat-card class="analyze-card" *ngIf="!startedAnalysis; else startedTpl">
+    <mat-button-toggle-group
+      class="mode-toggle"
+      [value]="mode"
+      [disabled]="loading"
+      hideSingleSelectionIndicator
+      (change)="onModeChange($event.value)"
+    >
+      <mat-button-toggle value="repo">
+        <mat-icon>link</mat-icon>
+        URL de repositorio
+      </mat-button-toggle>
+      <mat-button-toggle value="file">
+        <mat-icon>folder_zip</mat-icon>
+        Subir archivo
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div class="mode-body" [ngSwitch]="mode">
+      <mat-form-field *ngSwitchCase="'repo'" appearance="outline" class="repo-field">
+        <mat-label>URL del repositorio</mat-label>
+        <input
+          matInput
+          type="url"
+          [(ngModel)]="repoUrl"
+          [disabled]="loading"
+          placeholder="https://github.com/usuario/proyecto"
+        />
+        <mat-icon matSuffix>link</mat-icon>
+        <mat-hint>Repositorio accesible por HTTPS</mat-hint>
+      </mat-form-field>
+
+      <app-upload-file
+        *ngSwitchCase="'file'"
+        accept=".zip,.tar.gz"
+        [disabled]="loading"
+        (fileSelected)="onFileSelected($event)"
+        (fileCleared)="onFileCleared()"
+      ></app-upload-file>
+    </div>
+
+    <div class="analyze-actions">
+      <button mat-flat-button color="primary" [disabled]="!canSubmit" (click)="submit()">
+        <ng-container *ngIf="!loading; else loadingTpl">
+          <mat-icon>play_arrow</mat-icon>
+          Iniciar análisis
+        </ng-container>
+        <ng-template #loadingTpl>
+          <mat-spinner class="btn-spinner" diameter="18"></mat-spinner>
+          {{ loadingMessage || 'Procesando...' }}
+        </ng-template>
+      </button>
+    </div>
+  </mat-card>
+
+  <ng-template #startedTpl>
+    <mat-card class="started-card">
+      <div class="started-icon">
+        <mat-icon>rocket_launch</mat-icon>
+      </div>
+
+      <h2>Análisis iniciado</h2>
+      <p class="started-text">
+        El análisis está en marcha. Guarda este identificador: con él podrás consultar el
+        estado y los resultados en la sección <strong>Validar análisis</strong>.
+      </p>
+
+      <div class="analysis-id">
+        <span class="analysis-id-label">Identificador del análisis</span>
+        <div class="analysis-id-value">
+          <code>{{ startedAnalysis?.analysisId }}</code>
+          <button mat-icon-button aria-label="Copiar identificador" (click)="copyAnalysisId()">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <dl class="started-meta" *ngIf="startedAnalysis?.startDate as startDate">
+        <div>
+          <dt>Estado</dt>
+          <dd>{{ startedAnalysis?.status || 'STARTED' }}</dd>
+        </div>
+        <div>
+          <dt>Inicio</dt>
+          <dd>{{ startDate | date: 'medium' }}</dd>
+        </div>
+      </dl>
+
+      <div class="started-actions">
+        <button mat-flat-button color="primary" (click)="goToValidation()">
+          <mat-icon>fact_check</mat-icon>
+          Consultar estado
+        </button>
+        <button mat-stroked-button color="primary" (click)="reset()">
+          <mat-icon>add</mat-icon>
+          Analizar otro
+        </button>
+      </div>
+    </mat-card>
+  </ng-template>
+</section>

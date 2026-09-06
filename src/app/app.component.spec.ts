@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'kata-senior-assessments-web-ui' title`, () => {
+  it(`should have a meaningful title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('kata-senior-assessments-web-ui');
+    expect(app.title).toBe('Plantilla Angular Material');
   });
 
-  it('should render title', () => {
+  it('should render the title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, kata-senior-assessments-web-ui');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Plantilla Angular Material');
   });
 });

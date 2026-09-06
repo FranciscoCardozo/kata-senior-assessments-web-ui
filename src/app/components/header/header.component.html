@@ -1,5 +1,18 @@
-<div class="header-container">
-  <div class="content">
-     <p class="header-text">Assessments</p>
-  </div>
-</div>
+<mat-toolbar class="app-header" color="primary">
+  <a class="brand" routerLink="/">
+    <mat-icon>account_tree</mat-icon>
+    <span>source-trace</span>
+  </a>
+
+  <span class="spacer"></span>
+
+  <a mat-button routerLink="/analyze">
+    <mat-icon>travel_explore</mat-icon>
+    Analizar código
+  </a>
+
+  <a mat-button routerLink="/validate">
+    <mat-icon>fact_check</mat-icon>
+    Validar análisis
+  </a>
+</mat-toolbar>

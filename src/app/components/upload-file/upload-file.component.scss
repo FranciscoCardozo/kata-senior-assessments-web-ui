@@ -1,0 +1,88 @@
+:host {
+  display: block;
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 36px 24px;
+  border-radius: 16px;
+  border: 2px dashed var(--app-border);
+  background: rgba(79, 142, 247, 0.04);
+  text-align: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &.dragging {
+    border-color: var(--primary);
+    background: rgba(79, 142, 247, 0.1);
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.dropzone-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: var(--primary);
+}
+
+.dropzone-title {
+  margin: 0;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.dropzone-sub {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--app-muted);
+}
+
+.dropzone-formats {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--app-muted);
+}
+
+.file-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid var(--app-border);
+
+  > mat-icon {
+    color: var(--primary-strong);
+  }
+}
+
+.file-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.file-name {
+  font-weight: 600;
+  color: var(--app-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: var(--app-muted);
+}

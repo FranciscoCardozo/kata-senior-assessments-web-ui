@@ -1,11 +1,33 @@
-<div class="home-page-container">
-  <div class="content">
-    <div class="title">Bienvenido al modulo de evaluaciones</div>
-    <div class="description">Seleccione una opción para comenzar</div>
-    <img
-      src="https://media1.tenor.com/m/3xYAJcfztqUAAAAd/funny-exam.gif"
-      alt="Animation"
-      class="gif"
-      >
+<section class="home-page-container">
+  <mat-card class="hero-card">
+    <p class="eyebrow">source-trace</p>
+    <h2>Analiza y valida tu código fuente</h2>
+    <p class="description">
+      Sube un archivo o comparte la URL de un repositorio para descargarlo y analizarlo en el
+      backend. Después consulta el estado y los resultados desde un mismo lugar.
+    </p>
+  </mat-card>
+
+  <div class="options-grid">
+    <mat-card *ngFor="let option of options" class="option-card">
+      <div class="option-icon">
+        <mat-icon>{{ option.icon }}</mat-icon>
+      </div>
+
+      <h3>{{ option.title }}</h3>
+      <p class="option-description">{{ option.description }}</p>
+
+      <ul class="option-points">
+        <li *ngFor="let point of option.points">
+          <mat-icon>check_circle</mat-icon>
+          <span>{{ point }}</span>
+        </li>
+      </ul>
+
+      <button mat-flat-button color="primary" [routerLink]="option.route">
+        {{ option.actionLabel }}
+        <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+      </button>
+    </mat-card>
   </div>
-</div>
+</section>

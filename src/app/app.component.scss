@@ -1,11 +1,10 @@
-.app-container {
-
-  margin-left: 240px; // mismo ancho del sidebar
-  padding-top: 70px; // mismo alto del header
-
+.app-shell {
   min-height: 100vh;
+  background: var(--app-bg);
+}
 
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-bottom: 25px;
+.content-shell {
+  margin-left: 260px;
+  padding: 108px 32px 32px;
+  min-height: 100vh;
 }
